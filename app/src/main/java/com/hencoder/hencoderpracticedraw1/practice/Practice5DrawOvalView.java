@@ -2,22 +2,40 @@ package com.hencoder.hencoderpracticedraw1.practice;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.RectF;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
 public class Practice5DrawOvalView extends View {
 
+    private Paint paint;
+    private int width;
+    private int height;
+
     public Practice5DrawOvalView(Context context) {
-        super(context);
+        this(context,null);
     }
 
     public Practice5DrawOvalView(Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs,-1);
     }
 
     public Practice5DrawOvalView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        paint.setColor(Color.BLACK);
+        paint.setStyle(Paint.Style.FILL);
+    }
+
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        width = w;
+        height = h;
     }
 
     @Override
@@ -25,5 +43,7 @@ public class Practice5DrawOvalView extends View {
         super.onDraw(canvas);
 
 //        练习内容：使用 canvas.drawOval() 方法画椭圆
+        RectF rect = new RectF(width / 3, height / 4, width * 2 / 3, height / 2);
+        canvas.drawOval(rect,paint);
     }
 }
